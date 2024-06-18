@@ -16,6 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name');
             $table->time('duration');
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('expire_at')->nullable();
         });
     }
 

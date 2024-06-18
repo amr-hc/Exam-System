@@ -6,6 +6,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\api\usersController;
+use App\Http\Controllers\api\AnswerController;
+use App\Http\Controllers\api\ExamController;
+use App\Http\Controllers\api\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +43,9 @@ Route::post('/login', function (Request $request) {
 });
 
 
-Route::resource('users', usersController::class);
+Route::apiResource('users', usersController::class);
+
+Route::apiResource('exams', ExamController::class);
+Route::apiResource('questions', QuestionController::class);
+Route::apiResource('answers', AnswerController::class);
+

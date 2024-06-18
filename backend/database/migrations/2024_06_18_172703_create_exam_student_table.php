@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('exam_id')->constrained('exams')->onDelete('cascade');
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->unsignedSmallInteger('score')->default(0);
-            $table->timestamp('started_at')->nullable();
             $table->enum('status', ['pending', 'ongoing', 'completed', 'expired'])->default('pending');
         });
     }
