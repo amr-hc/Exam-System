@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ExamResource;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Exam;
+use App\Models\Question;
+use App\Models\Answer;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -23,7 +25,36 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-        return Exam::create($request->all());
+        try {
+            DB::beginTransaction();
+            $exam=Exam::create($request->only(['name','duration','started_at','expire_at']));
+            foreach ($request->questions as $question){
+                $new_question=Question::create([
+                    "question" => $question['question'],
+                    "degree" => $question['degree'],
+                    "exam_id" => $exam->id,
+                ]);
+
+                foreach ($question['answers'] as $answer){
+                    Answer::create([
+                        "answer" => $answer['answer'],
+                        "is_correct" => $answer['is_correct'],
+                        "question_id" => $new_question->id,
+                    ]);
+                }
+            }
+
+            DB::commit();
+            return response()->json([
+                "message" => "Exam created successfully"
+            ]);
+
+        } catch (\Exception $e) {
+                
+            DB::rollBack();
+            return response()->json(['error' => $e->getMessage()], 404);
+
+        }
 
     }
 
