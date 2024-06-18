@@ -23,7 +23,8 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-        Exam::create($request->all());
+        return Exam::create($request->all());
+
     }
 
     /**
@@ -31,23 +32,17 @@ class ExamController extends Controller
      */
     public function show(Exam $exam)
     {
-        //
+        return new ExamResource($exam);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Exam $exam)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Exam $exam)
     {
-        //
+        return $exam->update($request->all());
     }
 
     /**

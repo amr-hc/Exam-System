@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\QuestionResource;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
@@ -13,23 +14,17 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        return QuestionResource::collection(Question::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        return Question::create($request->all());
     }
 
     /**
@@ -37,15 +32,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Question $question)
-    {
-        //
+        return new QuestionResource($question);
     }
 
     /**
@@ -53,7 +40,7 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        return $question->update($request->all());
     }
 
     /**
