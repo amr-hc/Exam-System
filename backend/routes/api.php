@@ -9,6 +9,8 @@ use App\Http\Controllers\api\usersController;
 use App\Http\Controllers\api\AnswerController;
 use App\Http\Controllers\api\ExamController;
 use App\Http\Controllers\api\QuestionController;
+use App\Http\Controllers\api\ExamStudentController;
+use App\Http\Controllers\api\StudentAnswerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +51,9 @@ Route::apiResource('exams', ExamController::class);
 Route::apiResource('questions', QuestionController::class);
 Route::apiResource('answers', AnswerController::class);
 
+Route::GET('exams/{exam}/students/{student}',[ExamStudentController::class,'assignExam']);
+Route::GET('unassign/exams/{exam}/students/{student}',[ExamStudentController::class,'unassignExam']);
+
+
+Route::GET('answer/{answer}/students/{student}',[StudentAnswerController::class,'assignAnswer']);
+Route::GET('unassign/answer/{answer}/students/{student}',[StudentAnswerController::class,'unassignAnswer']);

@@ -12,8 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('exam_student', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
             $table->foreignId('exam_id')->constrained('exams')->onDelete('cascade');
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->unsignedSmallInteger('score')->default(0);
