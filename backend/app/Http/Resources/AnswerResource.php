@@ -17,11 +17,6 @@ class AnswerResource extends JsonResource
         return [
             'id' => $this->id,
             'answer' => $this->answer,
-            'is_correct' => $this->correct,
-            'question_id' => $this->question_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'users' => $this->users,
         ];
     }
 }

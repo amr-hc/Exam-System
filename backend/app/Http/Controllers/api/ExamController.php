@@ -81,6 +81,7 @@ class ExamController extends Controller
      */
     public function destroy(Exam $exam)
     {
-        //
+        $exam->delete();
+        return response()->json(['message' => 'Exam deleted successfully'], 200);
     }
 }

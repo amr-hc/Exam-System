@@ -53,7 +53,9 @@ Route::apiResource('answers', AnswerController::class);
 
 Route::GET('exams/{exam}/students/{student}',[ExamStudentController::class,'assignExam']);
 Route::GET('unassign/exams/{exam}/students/{student}',[ExamStudentController::class,'unassignExam']);
-
+Route::GET('exam_student',[ExamStudentController::class,'index']);
+Route::GET('exam_student/{exam}/{student}',[ExamStudentController::class,'show']);
 
 Route::GET('answer/{answer}/students/{student}',[StudentAnswerController::class,'assignAnswer']);
 Route::GET('unassign/answer/{answer}/students/{student}',[StudentAnswerController::class,'unassignAnswer']);
+
