@@ -7,13 +7,13 @@ import ExamList from "./components/Exam/ExamList";
 import TakeExam from "./components/Exam/TakeExam";
 import Results from "./pages/Results";
 import NotFound from "./pages/NotFound";
-import Header from "./components/Layout/Header";
-import Footer from "./components/Layout/Footer";
+// import Header from "./components/Layout/Header";
+// import Footer from "./components/Layout/Footer";
 
 const App = () => {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -26,7 +26,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
