@@ -28,6 +28,7 @@ class ExamStudentController extends Controller
         ], 200);
     }
 
+
     public function index(){
         return response()->json(exam_student::all(), 200);
     }

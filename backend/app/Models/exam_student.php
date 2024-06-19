@@ -18,4 +18,8 @@ class exam_student extends Model
     public $timestamps = false;
 
     protected $guarded = [];
+
+    public function exams(){
+        return $this->belongsTo(Exam::class);
+    }
 }
