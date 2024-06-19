@@ -8,6 +8,8 @@ use App\Models\Exam;
 use App\Models\Question;
 use App\Models\Answer;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Jobs\ExipredExam;
 
 class ExamController extends Controller
 {
@@ -45,6 +47,10 @@ class ExamController extends Controller
             }
 
             DB::commit();
+
+            $expireAt = \DateTime::createFromFormat('Y-m-d H:i', $exam->expire_at)->modify('-3 hours');
+            ExipredExam::dispatch()->delay($expireAt);
+
             return response()->json([
                 "message" => "Exam created successfully"
             ]);
