@@ -13,3 +13,92 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.sidebar {
+  background-color: #f8f9fa;
+  height: auto;
+  width: 300px;
+  padding: 20px;
+  margin: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.sidebar .item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.sidebar .item:hover {
+  background-color: #e9ecef;
+}
+.sidebar .item.active {
+  background-color: #007bff;
+  color: white;
+}
+.sidebar .item .icon {
+  margin-right: 10px;
+}
+.content {
+  padding: 20px;
+  background-color: #f8f9fa;
+  margin: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  height: calc(100vh - 125px);
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: auto;
+    margin: 1rem 0;
+    padding: 10px;
+  }
+  .sidebar .text {
+    display: none;
+  }
+  .sidebar .item .icon {
+    margin-right: 5px;
+  }
+  .content {
+    padding: 10px;
+  }
+}
+
+.exam-card {
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  color: inherit;
+  max-width: 300px;
+  position: relative;
+}
+.exam-card .badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.exam-card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: column;
+  padding: 10px;
+  text-align: center;
+}

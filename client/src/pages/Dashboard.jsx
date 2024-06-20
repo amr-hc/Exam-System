@@ -1,13 +1,26 @@
-import useAuth from "../hooks/useAuth";
+import { Routes, Route } from "react-router-dom";
+import Sidebar from "../components/Layout/Sidebar";
+import Exams from "../components/Exam/ExamList";
+import Results from "./Results";
+import { FaHome, FaList, FaChartBar } from "react-icons/fa";
 
 const Dashboard = () => {
-  const { user, logout } = useAuth();
+  const sidebarItems = [
+    { name: "Dashboard", path: "/dashboard", icon: <FaHome /> },
+    { name: "Exams", path: "/dashboard/exams", icon: <FaList /> },
+    { name: "Results", path: "/dashboard/results", icon: <FaChartBar /> },
+  ];
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome, {user.username}</p>
-      <button onClick={logout}>Logout</button>
+    <div className="d-flex">
+      <Sidebar items={sidebarItems} />
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<h1>Dashboard Home</h1>} />
+          <Route path="exams" element={<Exams />} />
+          <Route path="results" element={<Results />} />
+        </Routes>
+      </div>
     </div>
   );
 };

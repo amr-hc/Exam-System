@@ -6,6 +6,7 @@ import store from "./store/store";
 import { Provider } from "react-redux";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.js";
 import "./index.css";
 import "./styles/main.css";
 

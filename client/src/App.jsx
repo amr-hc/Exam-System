@@ -1,23 +1,27 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import ExamList from "./components/Exam/ExamList";
-import TakeExam from "./components/Exam/TakeExam";
+import TakeExam from "./components/Exam/ExamPage";
 import Results from "./pages/Results";
 import NotFound from "./pages/NotFound";
-// import Header from "./components/Layout/Header";
-// import Footer from "./components/Layout/Footer";
+import Header from "./components/Layout/Header";
+import Footer from "./components/Layout/Footer";
 
 const App = () => {
+  const location = useLocation();
+
+  const noHeaderPaths = ["/", "/login", "/register"];
+
   return (
     <div>
-      {/* <Header /> */}
+      {!noHeaderPaths.includes(location.pathname) && <Header />}
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/exams" element={<ExamList />} />
@@ -26,7 +30,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
