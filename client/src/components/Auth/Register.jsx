@@ -18,9 +18,9 @@ const Register = () => {
 
   const HTMLValidations = (e) => {
     const form = e.target.closest("form");
+    e.preventDefault();
+    e.stopPropagation();
     if (!form.checkValidity()) {
-      e.preventDefault();
-      e.stopPropagation();
       form.classList.add("was-validated");
       return false;
     } else {

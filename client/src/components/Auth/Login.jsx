@@ -5,7 +5,7 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    device_name:navigator.appName
+    device_name: navigator.appName,
   });
 
   const handleChange = (e) => {
@@ -17,9 +17,9 @@ const Login = () => {
 
   const HTMLValidations = (e) => {
     const form = e.target.closest("form");
+    e.preventDefault();
+    e.stopPropagation();
     if (!form.checkValidity()) {
-      e.preventDefault();
-      e.stopPropagation();
       form.classList.add("was-validated");
       return false;
     } else {
@@ -27,41 +27,47 @@ const Login = () => {
       return true;
     }
   };
+  const setStorageData = (data) => {
+    localStorage.setItem("user_info", JSON.stringify(data));
+  };
+  const sendRequest = async () => {
+    try {
+      console.log(formData);
+      const response = await axios.post(
+        "http://localhost:8000/api/login",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Login successful:", response.data);
+      setStorageData(response.data);
+    } catch (error) {
+      if (error.response) {
+        console.error("Error response:", error.response.data);
+        console.error("Error status:", error.response.status);
+        console.error("Error headers:", error.response.headers);
+        alert(
+          `Error: ${
+            error.response.data.message || "Unable to insert data to server."
+          }`
+        );
+      } else if (error.request) {
+        console.error("Error request:", error.request);
+        alert("Error: No response from server.");
+      } else {
+        console.error("Error message:", error.message);
+        alert(`Error: ${error.message}`);
+      }
+    }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (HTMLValidations(e)) {
-      console.log(formData);
-
-      try {
-        const response = await axios.post(
-          "http://localhost:8000/api/login",
-          formData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        console.log("Login successful:", response.data);
-      } catch (error) {
-        if (error.response) {
-          console.error("Error response:", error.response.data);
-          console.error("Error status:", error.response.status);
-          console.error("Error headers:", error.response.headers);
-          alert(
-            `Error: ${
-              error.response.data.message || "Unable to insert data to server."
-            }`
-          );
-        } else if (error.request) {
-          console.error("Error request:", error.request);
-          alert("Error: No response from server.");
-        } else {
-          console.error("Error message:", error.message);
-          alert(`Error: ${error.message}`);
-        }
-      }
+      await sendRequest();
     }
   };
 
