@@ -1,8 +1,8 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
-import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
+// import Login from "./components/Auth/Login";
+// import Register from "./components/Auth/Register";
 import ExamList from "./components/Exam/ExamList";
 import TakeExam from "./components/Exam/ExamPage";
 import Results from "./pages/Results";
