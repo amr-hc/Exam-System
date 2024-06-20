@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/authSlice";
 
 const AuthForm = ({ isLogin }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -39,7 +44,14 @@ const AuthForm = ({ isLogin }) => {
         },
       });
       console.log("Success:", response.data);
-      setStorageData(response.data);
+      const user = response.data.user;
+      setStorageData(user);
+      dispatch(setUser(user));
+      if (user.role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (error) {
       handleError(error);
     }

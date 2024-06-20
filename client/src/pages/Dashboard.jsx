@@ -16,7 +16,7 @@ const Dashboard = () => {
       <Sidebar items={sidebarItems} />
       <div className="content">
         <Routes>
-          <Route path="/" element={<h1>Dashboard Home</h1>} />
+          <Route path="/" element={<h1>Welcome to the Dashboard</h1>} />
           <Route path="exams" element={<Exams />} />
           <Route path="results" element={<Results />} />
         </Routes>
