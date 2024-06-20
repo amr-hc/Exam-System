@@ -9,6 +9,7 @@ import Results from "./pages/Results";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
+import AuthForm from "./components/Auth/AuthForm";
 
 const App = () => {
   const location = useLocation();
@@ -22,8 +23,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<AuthForm isLogin={true} />} />
+          <Route path="/register" element={<AuthForm isLogin={false} />} />
           <Route path="/exams" element={<ExamList />} />
           <Route path="/exams/:id" element={<TakeExam />} />
           <Route path="/results" element={<Results />} />

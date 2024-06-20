@@ -11,6 +11,7 @@ use App\Http\Controllers\api\ExamController;
 use App\Http\Controllers\api\QuestionController;
 use App\Http\Controllers\api\ExamStudentController;
 use App\Http\Controllers\api\StudentAnswerController;
+use App\Http\Resources\UserResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,7 @@ Route::post('/login', function (Request $request) {
             'email' => ['The provided credentials are incorrect.'],
         ]);
     }
-    return ["user" => $user, "token" => $user->createToken($request->device_name)->plainTextToken];
+    return ["user" => new UserResource($user), "token" => $user->createToken($request->device_name)->plainTextToken];
 });
 
 
