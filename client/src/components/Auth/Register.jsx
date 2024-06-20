@@ -30,8 +30,6 @@ const Register = () => {
   };
   const sendRequsest = async () => {
     try {
-      console.log(formData);
-
       const response = await axios.post(
         "http://127.0.0.1:8000/api/users",
         formData
@@ -47,7 +45,6 @@ const Register = () => {
     localStorage.setItem("user_info", JSON.stringify(data));
   };
   const handleSubmit = async (e) => {
-    e.preventDefault();
     if (HTMLValidations(e)) {
       sendRequsest();
     }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssignAllAnswersRequest;
-use App\Models\student_answer;
+// use App\Models\student_answer;
 // use App\Models\User;
 // use App\Models\Answer;
 use Illuminate\Http\Request;
@@ -24,10 +24,10 @@ class StudentAnswerController extends Controller
     }
 
     public function unassignAnswer(Request $request){
-        $answerExisting= student_answer::where('answer_id',$request->answer_id)->exists();
+        $answerExisting= auth()->user()->answers()->where('answer_id',$request->answer_id)->exists();
         if(!$answerExisting){
             return response()->json([
-               'message' => 'Answer does not exist'
+               'message' => "Answer does not exist in student's answers"
             ], 404);
         }
         auth()->user()->answers()->detach($request->answer_id);
