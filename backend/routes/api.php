@@ -59,3 +59,6 @@ Route::GET('exam_student/{exam}/{student}',[ExamStudentController::class,'show']
 Route::GET('answer/{answer}/students/{student}',[StudentAnswerController::class,'assignAnswer']);
 Route::GET('unassign/answer/{answer}/students/{student}',[StudentAnswerController::class,'unassignAnswer']);
 
+
+Route::post('/assignanswers',[StudentAnswerController::class,'assignAllAnswers'])->middleware('auth:sanctum');//
+
