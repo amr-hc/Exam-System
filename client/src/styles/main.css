@@ -102,3 +102,68 @@
   padding: 10px;
   text-align: center;
 }
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.options .option {
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #dee2e6;
+}
+
+.options .option:hover {
+  border: 1px solid #007bff;
+}
+
+.options .option.active {
+  border: 1px solid #007bff;
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.option.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.custom-progress {
+  appearance: none;
+  width: 100%;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #e0e0e0;
+}
+
+.custom-progress::-webkit-progress-bar {
+  background-color: #e0e0e0;
+}
+
+.custom-progress::-webkit-progress-value {
+  background-color: #007bff;
+  border-radius: 10px;
+}
+
+.custom-progress::-moz-progress-bar {
+  background-color: #007bff;
+  border-radius: 10px;
+}
