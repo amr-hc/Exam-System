@@ -167,3 +167,27 @@
   background-color: #007bff;
   border-radius: 10px;
 }
+
+.auth-form {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 100px;
+  background-color: #f8f9fa;
+}
+.auth-form label {
+  font-weight: bold;
+}
+.auth-form input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #dee2e6;
+  margin-bottom: 10px;
+}

@@ -15,6 +15,9 @@ const AuthForm = ({ isLogin }) => {
     name: "",
     device_name: isLogin ? navigator.appName : "",
   });
+  const setIsLogin = () => {
+    navigate(isLogin ? "/register" : "/login");
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -90,86 +93,101 @@ const AuthForm = ({ isLogin }) => {
   };
 
   return (
-    <div className="auth-form row justify-content-center align-items-center">
-      <form
-        onSubmit={handleSubmit}
-        className="row flex-column justify-content-center align-items-center needs-validation"
-        noValidate
-      >
-        <div className="col-md-10 p-0 row">
-          {!isLogin && (
-            <div className="col-md-6">
-              <label htmlFor="name" className="form-label">
-                Name
+    <div className="home-bg">
+      <div className="container py-5 auth-form">
+        <form
+          onSubmit={handleSubmit}
+          className="row flex-column justify-content-center align-items-center needs-validation"
+          noValidate
+        >
+          <div className="col-md-10 p-0 row">
+            {!isLogin && (
+              <div>
+                <label htmlFor="name" className="form-label">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control w-100"
+                  id="name"
+                  name="name"
+                  pattern="^[a-zA-Z ,.'\-]+$"
+                  placeholder="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+                <div className="invalid-feedback">
+                  Please enter a valid name (letters, spaces, commas, periods,
+                  single quotes, and hyphens).
+                </div>
+              </div>
+            )}
+
+            <div>
+              <label htmlFor="useremail" className="form-label">
+                Email
               </label>
               <input
-                type="text"
-                className="form-control"
-                id="name"
-                name="name"
-                pattern="^[a-zA-Z ,.'\-]+$"
-                placeholder="name"
-                value={formData.name}
+                type="email"
+                className="form-control w-100"
+                id="useremail"
+                name="email"
+                pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                placeholder="example@example.com"
+                value={formData.email}
                 onChange={handleChange}
                 required
               />
               <div className="invalid-feedback">
-                Please enter a valid name (letters, spaces, commas, periods,
-                single quotes, and hyphens).
+                This email is either invalid or already associated with an
+                existing account.
               </div>
             </div>
-          )}
+          </div>
 
-          <div className="col-md-6">
-            <label htmlFor="useremail" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="useremail"
-              name="email"
-              pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-              placeholder="example@example.com"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <div className="invalid-feedback">
-              This email is either invalid or already associated with an
-              existing account.
+          <div className="col-md-10 p-0 row">
+            <div>
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                name="password"
+                placeholder="enter password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              <div className="invalid-feedback">
+                Please enter a valid password (Minimum eight characters, at
+                least one letter, one number, and one special character).
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="col-md-10 p-0 row">
-          <div className="col-md-6">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              name="password"
-              placeholder="enter password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-            <div className="invalid-feedback">
-              Please enter a valid password (Minimum eight characters, at least
-              one letter, one number, and one special character).
-            </div>
+          <div className="col-6 m-2 row">
+            <button className="btn btn-primary" type="submit">
+              {isLogin ? "Login" : "Register"}
+            </button>
           </div>
-        </div>
 
-        <div className="col-12 m-2 row">
-          <button className="btn btn-primary" type="submit">
-            {isLogin ? "Login" : "Register"}
-          </button>
-        </div>
-      </form>
+          <div className=" m-2 d-flex justify-content-center align-items-center">
+            <p className="m-0">
+              {isLogin ? "Don't have an account?" : "Already have an account?"}
+            </p>
+            <button
+              className="btn btn-link "
+              type="button"
+              onClick={() => setIsLogin(!isLogin)}
+            >
+              {isLogin ? "Register" : "Login"}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
