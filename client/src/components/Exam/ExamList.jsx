@@ -4,6 +4,7 @@ import { fetchExams } from "../../api";
 import { FaFileAlt } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 
 const ExamList = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const ExamList = () => {
     <div>
       <h2>Exams</h2>
       {loading ? (
-        <p>Loading...</p>
+        <Spinner animation="grow" />
       ) : (
         <div className="d-flex flex-wrap">
           {exams.map((exam) => (
@@ -54,7 +55,7 @@ const ExamList = () => {
                 <FaFileAlt className="fs-1 my-2" />
                 <h5 className="card-title lead my-2">{exam.name}</h5>
                 <p className="card-text text-muted small">
-                  Expires at: {exam.expireAt}
+                  Expires at: {new Date(exam.expire_at).toLocaleString()}
                 </p>
                 <div className="badge bg-info">{exam.duration}</div>
                 <Button
