@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Table, Container } from 'react-bootstrap';
+import { Table, Container, Card } from 'react-bootstrap';
 
 const ExamDetails = () => {
     const { id } = useParams();
@@ -32,16 +32,40 @@ const ExamDetails = () => {
     }
 
     return (
-        <Container>
-            <h2>Exam Details</h2>
-            <p><strong>ID:</strong> {exam.id}</p>
-            <p><strong>Name:</strong> {exam.name}</p>
-            <p><strong>Duration:</strong> {exam.duration}</p>
-            <p><strong>Started At:</strong> {exam.started_at}</p>
-            <p><strong>Expire At:</strong> {exam.expire_at}</p>
-            <h3>Questions</h3>
-            <Table striped bordered hover>
-                <thead>
+        <Container className="mt-4">
+            <Card>
+                <Card.Header as="h2">Exam Details</Card.Header>
+                <Card.Body>
+                    <Table bordered>
+                        <tbody>
+                            <tr>
+                                <td><strong>ID:</strong></td>
+                                <td>{exam.id}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Name:</strong></td>
+                                <td>{exam.name}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Duration:</strong></td>
+                                <td>{exam.duration}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Started At:</strong></td>
+                                <td>{exam.started_at}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Expire At:</strong></td>
+                                <td>{exam.expire_at}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                </Card.Body>
+            </Card>
+
+            <h3 className="mt-4">Questions</h3>
+            <Table striped bordered hover className="mt-2">
+                <thead className="thead-dark">
                     <tr>
                         <th>Question</th>
                         <th>Degree</th>
@@ -54,10 +78,20 @@ const ExamDetails = () => {
                             <td>{question.question}</td>
                             <td>{question.degree}</td>
                             <td>
-                                <ul>
+                                <ul className="list-unstyled">
                                     {question.answers.map((answer) => (
-                                        <li key={answer.id}>
-                                            {answer.answer} {answer.is_correct ? "(Correct)" : ""}
+                                        <li 
+                                            key={answer.id} 
+                                            className="mb-1"
+                                            style={{
+                                                color: answer.is_correct ? 'green' : 'black',
+                                                fontWeight: answer.is_correct ? 'bold' : 'normal',
+                                                backgroundColor: answer.is_correct ? '#d4edda' : 'transparent',
+                                                padding: answer.is_correct ? '5px' : '0',
+                                                borderRadius: answer.is_correct ? '5px' : '0'
+                                            }}
+                                        >
+                                            {answer.answer}
                                         </li>
                                     ))}
                                 </ul>

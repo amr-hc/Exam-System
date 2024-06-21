@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ExamResource;
 use App\Http\Resources\ExamStudentResource;
+use App\Http\Resources\ExamResourceForAdmin;
 use Illuminate\Support\Facades\DB;
 use App\Models\Exam;
 use App\Models\Question;
@@ -11,6 +12,7 @@ use App\Models\Answer;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Jobs\ExipredExam;
+use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller
 {
@@ -69,15 +71,17 @@ class ExamController extends Controller
      * Display the specified resource.
      */
     public function show(Exam $exam)
-    {
+    {   
+        $user = Auth::guard('sanctum')->user();
+        if ($user && $user->role == 'admin') {
+            return new ExamResourceForAdmin($exam);
+        }
+
         return new ExamResource($exam);
     }
 
     public function showResult(Exam $exam)
     {
-        // return $exam->exam_student->where('status','completed');
-        // return new ExamResource($exam);
-
         return ExamStudentResource::collection($exam->exam_student->where('status','completed'));
     }
 
