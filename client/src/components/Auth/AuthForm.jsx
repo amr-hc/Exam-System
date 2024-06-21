@@ -40,6 +40,8 @@ const AuthForm = ({ isLogin }) => {
   };
 
   const sendRequest = async (url) => {
+    console.log(formData);
+
     try {
       const response = await axios.post(url, formData, {
         headers: {

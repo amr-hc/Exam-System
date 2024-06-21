@@ -46,10 +46,10 @@ class StudentAnswerController extends Controller
 
         auth()->user()->answers()->syncWithoutDetaching($answerIds);
 
+        auth()->user()->exams()->attach($exam->id);
         auth()->user()->exams()->updateExistingPivot($exam->id, ['score' => $this->getScore(auth()->user()->id,$exam->id)]);
-        return response()->json([
-           'message' => 'Answers assigned successfully'
-        ], 200);
-       
+
+        $exam = auth()->user()->exams()->where('exam_id',$exam->id)->first()->pivot;
+        return $exam;
     }
 }
