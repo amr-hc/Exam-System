@@ -6,6 +6,8 @@ use App\Http\Resources\QuestionResource;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
+use App\Models\Answer;
+
 
 class QuestionController extends Controller
 {
@@ -24,7 +26,20 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        return Question::create($request->all());
+        // return Question::create($request->all());
+
+        $question=Question::create($request->only(['question','degree','exam_id']));
+        foreach ($request->answers as $answer){
+         
+                Answer::create([
+                    "answer" => $answer['answer'],
+                    "is_correct" => $answer['is_correct'],
+                    "question_id" => $question->id,
+                ]);
+            }
+        
+            return response()->json(['message' => 'Question Created successfully'], 200);
+        
     }
 
     /**
