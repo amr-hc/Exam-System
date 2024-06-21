@@ -9,6 +9,8 @@ use App\Models\Exam;
 use App\Models\exam_student;
 use Illuminate\Http\Request;
 use App\Traits\ScoreTrait;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\ExamResultsResource;
 
 
 class ExamStudentController extends Controller
@@ -31,6 +33,12 @@ class ExamStudentController extends Controller
 
     public function index(){
         return response()->json(exam_student::all(), 200);
+    }
+
+    public function showUserExams(){
+        
+        $user = Auth::guard('sanctum')->user()->exams;
+        return ExamResultsResource::collection($user);
     }
 
     public function show(Exam $exam, User $student){
