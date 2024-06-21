@@ -65,14 +65,13 @@ const ExamPage = () => {
       if (timeRemaining <= 0) {
         console.log("Time expired, submitting automatically...");
       }
-      const response = await submitExamAnswers(id, selectedAnswers); // Adjust this call to match your API
+
+      const response = await submitExamAnswers(id, selectedAnswers);
       console.log("Exam submitted successfully:", response);
       setExamFinished(true);
-      // Optionally redirect to a results page
-      // navigate(`/exam/${id}/result`);
+      navigate(`/results`);
     } catch (error) {
       console.error("Error submitting exam answers:", error);
-      // Handle submission error (e.g., show a message to the user)
     }
   };
 

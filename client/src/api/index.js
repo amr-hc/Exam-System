@@ -25,12 +25,38 @@ export const fetchExamDetails = async (examId) => {
 };
 
 export const submitExamAnswers = async (examId, answers) => {
-  const response = await api.post(`/exams/${examId}/submit`, { answers });
-  return response.data.data;
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const formattedAnswers = {
+    answers: Object.keys(answers).map((questionId) => ({
+      answer_id: answers[questionId],
+    })),
+  };
+
+  try {
+    const response = await api.post("/assignanswers", formattedAnswers, config);
+    console.log("Full response:", response); // Log the full response for debugging
+    return response.data.data;
+  } catch (error) {
+    console.error("Error submitting exam answers:", error.response || error);
+    throw error;
+  }
 };
 
 export const fetchResults = async () => {
-  const response = await api.get("/results");
+  const token = localStorage.getItem("token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await api.get("/exam_student/mine", config);
+
   return response.data;
 };
 

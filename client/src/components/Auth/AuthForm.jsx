@@ -48,7 +48,9 @@ const AuthForm = ({ isLogin }) => {
       });
       console.log("Success:", response.data);
       const user = response.data.user;
+      const token = response.data.token;
       setStorageData(user);
+      localStorage.setItem("token", token);
       dispatch(setUser(user));
       if (user.role === "admin") {
         navigate("/admin/dashboard");
