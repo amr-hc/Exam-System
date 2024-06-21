@@ -6,10 +6,13 @@ use App\Http\Requests\AssignAllAnswersRequest;
 // use App\Models\student_answer;
 // use App\Models\User;
 // use App\Models\Answer;
+use App\Models\Answer;
 use Illuminate\Http\Request;
+use App\Traits\ScoreTrait;
 
 class StudentAnswerController extends Controller
 {
+    use ScoreTrait;
     
     public function assignAnswer(Request $request){
         $request->validate([ 
@@ -39,7 +42,11 @@ class StudentAnswerController extends Controller
 
     public function assignAllAnswers(AssignAllAnswersRequest $request ){
           $answerIds = $request->answers;
+          $exam = Answer::find($answerIds[0]['answer_id'])->exam;
+
         auth()->user()->answers()->syncWithoutDetaching($answerIds);
+
+        auth()->user()->exams()->updateExistingPivot($exam->id, ['score' => $this->getScore(auth()->user()->id,$exam->id)]);
         return response()->json([
            'message' => 'Answers assigned successfully'
         ], 200);

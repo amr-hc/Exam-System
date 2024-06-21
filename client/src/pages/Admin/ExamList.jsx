@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 const ExamList = () => {
     const [exams, setExams] = useState([]);
-    const [showModal, setShowModal] = useState(false);
-    const [currentExam, setCurrentExam] = useState(null);
 
     const navigate = useNavigate();
 
@@ -33,8 +31,7 @@ const ExamList = () => {
     };
 
     const viewDetails = (id) => {
-        setCurrentExam(id);
-        setShowModal(true);
+        navigate(`/admin/exam/${id}`)
     };
 
     const editExam = (id) => {
@@ -44,7 +41,6 @@ const ExamList = () => {
         navigate(`/admin/exam/${id}/result/`)
     };
 
-    const handleClose = () => setShowModal(false);
 
     return (
         <div>
@@ -78,65 +74,10 @@ const ExamList = () => {
                     ))}
                 </tbody>
             </Table>
-            <Modal show={showModal} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Exam Details</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {currentExam && <ExamDetails examId={currentExam} />}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+
         </div>
     );
 };
 
-const ExamDetails = ({ examId }) => {
-    const [exam, setExam] = useState(null);
-
-    useEffect(() => {
-        fetchExamDetails();
-    }, [examId]);
-
-    const fetchExamDetails = async () => {
-        try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/exams/${examId}`);
-            setExam(response.data);
-        } catch (error) {
-            console.error('Error fetching exam details:', error);
-        }
-    };
-
-    if (!exam) {
-        return <div>Loading...</div>;
-    }
-
-    return (
-        <div>
-            <p>ID: {exam.id}</p>
-            <p>Name: {exam.name}</p>
-            <p>Duration: {exam.duration}</p>
-            <p>Started At: {exam.started_at}</p>
-            <p>Expire At: {exam.expire_at}</p>
-            <p>Questions:</p>
-            <ul>
-                {exam.questions.map(question => (
-                    <li key={question.id}>
-                        {question.question} (Degree: {question.degree})
-                        <ul>
-                            {question.answers.map(answer => (
-                                <li key={answer.id}>{answer.answer}</li>
-                            ))}
-                        </ul>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
 
 export default ExamList;

@@ -17,4 +17,9 @@ class Answer extends Model
     public function users(){
         return $this->belongsToMany(User::class, 'student_answer','answer_id', 'student_id');
     }
+
+    public function exam()
+    {
+        return $this->hasOneThrough(Exam::class, Question::class, 'id', 'id', 'question_id', 'exam_id');
+    }
 }
