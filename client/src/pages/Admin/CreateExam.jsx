@@ -3,10 +3,11 @@ import axios from "axios";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
-import moment from "moment";
+
 import { useNavigate } from "react-router-dom";
 
 const CreateExam = () => {
+  const userToken = JSON.parse(localStorage.getItem("user_info")).token;
   const navigate = useNavigate();
   const [exam, setExam] = useState({
     name: "",
@@ -143,7 +144,11 @@ const CreateExam = () => {
       ).slice(-2)}`,
     };
     axios
-      .post("http://127.0.0.1:8000/api/exams", formattedExam)
+      .post("http://127.0.0.1:8000/api/exams", formattedExam, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
       .then((response) => {
         console.log(response.data);
 

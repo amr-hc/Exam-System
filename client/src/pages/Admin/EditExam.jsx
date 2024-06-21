@@ -7,8 +7,9 @@ import "react-datetime/css/react-datetime.css";
 import moment from "moment";
 
 const EditExam = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { id } = useParams();
+  const userToken = JSON.parse(localStorage.getItem("user_info")).token;
   const [exam, setExam] = useState({
     name: "",
     duration: "",
@@ -34,7 +35,14 @@ const EditExam = () => {
 
   const fetchExam = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/exams/${id}`);
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/exams/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
       setExam(response.data.data);
     } catch (error) {
       console.error("Error fetching exam:", error);
@@ -104,6 +112,11 @@ const EditExam = () => {
           degree: newQuestion.degree,
           exam_id: id,
           answers: newQuestion.answers,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
         }
       );
 
@@ -131,7 +144,11 @@ const EditExam = () => {
 
   const deleteQuestion = async (questionId) => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/questions/${questionId}`);
+      await axios.delete(`http://127.0.0.1:8000/api/questions/${questionId}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
       setExam({
         ...exam,
         questions: exam.questions.filter(
@@ -146,7 +163,11 @@ const EditExam = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`http://127.0.0.1:8000/api/exams/${id}`, exam);
+      await axios.patch(`http://127.0.0.1:8000/api/exams/${id}`, exam, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
       navigate("/admin/ExamList");
     } catch (error) {
       console.error("Error updating exam:", error);
