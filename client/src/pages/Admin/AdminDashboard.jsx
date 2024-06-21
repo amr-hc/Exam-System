@@ -4,6 +4,7 @@ import Exams from "../../components/Exam/ExamList";
 import CreateExam from "./CreateExam";
 import ExamList from "./ExamList";
 import EditExam from "./EditExam";
+import ResultComponent from "./ResultComponent";
 import { FaHome, FaList, FaChartBar } from "react-icons/fa";
 
 const AdminDashboard = () => {
@@ -25,6 +26,7 @@ const AdminDashboard = () => {
           <Route path="new-exam" element={<CreateExam />} />
           <Route path="examList" element={<ExamList />} />
           <Route path="/edit-exam/:id" element={<EditExam />} />
+          <Route path="/exam/:id/result" element={<ResultComponent />} />
         </Routes>
       </div>
     </div>

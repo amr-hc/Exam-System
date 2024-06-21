@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ExamResource;
+use App\Http\Resources\ExamStudentResource;
 use Illuminate\Support\Facades\DB;
 use App\Models\Exam;
 use App\Models\Question;
@@ -70,6 +71,14 @@ class ExamController extends Controller
     public function show(Exam $exam)
     {
         return new ExamResource($exam);
+    }
+
+    public function showResult(Exam $exam)
+    {
+        // return $exam->exam_student->where('status','completed');
+        // return new ExamResource($exam);
+
+        return ExamStudentResource::collection($exam->exam_student->where('status','completed'));
     }
 
 

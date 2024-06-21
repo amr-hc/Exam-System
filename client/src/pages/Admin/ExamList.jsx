@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button, Modal } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 
 const ExamList = () => {
     const [exams, setExams] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [currentExam, setCurrentExam] = useState(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchExams();
@@ -35,7 +38,10 @@ const ExamList = () => {
     };
 
     const editExam = (id) => {
-        window.location.href = `/admin/edit-exam/${id}`;
+        navigate(`/admin/edit-exam/${id}`)
+    };
+    const ResultExam = (id) => {
+        navigate(`/admin/exam/${id}/result/`)
     };
 
     const handleClose = () => setShowModal(false);
@@ -64,6 +70,7 @@ const ExamList = () => {
                             <td>{exam.expire_at}</td>
                             <td>
                                 <Button variant="info" onClick={() => viewDetails(exam.id)}>Details</Button>{' '}
+                                <Button variant="warning" onClick={() => ResultExam(exam.id)}>Result</Button>{' '}
                                 <Button variant="primary" onClick={() => editExam(exam.id)}>Edit</Button>{' '}
                                 <Button variant="danger" onClick={() => deleteExam(exam.id)}>Delete</Button>
                             </td>

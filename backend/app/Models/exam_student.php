@@ -22,4 +22,7 @@ class exam_student extends Model
     public function exams(){
         return $this->belongsTo(Exam::class);
     }
+    public function student(){
+        return $this->belongsTo(User::class);
+    }
 }
