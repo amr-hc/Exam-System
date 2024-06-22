@@ -47,7 +47,7 @@ class StudentAnswerController extends Controller
         auth()->user()->answers()->syncWithoutDetaching($answerIds);
 
         auth()->user()->exams()->attach($exam->id);
-        auth()->user()->exams()->updateExistingPivot($exam->id, ['score' => $this->getScore(auth()->user()->id,$exam->id)]);
+        auth()->user()->exams()->updateExistingPivot($exam->id, ['score' => $this->getScore(auth()->user()->id,$exam->id),'status' => 'completed']);
 
         $exam = auth()->user()->exams()->where('exam_id',$exam->id)->first()->pivot;
         return $exam;
