@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Datetime from "react-datetime";
@@ -51,7 +51,7 @@ const CreateExam = () => {
 
   const handleDegreeChange = (index, e) => {
     const { value } = e.target;
-    const degree = Math.min(Math.max(value, 0), 100); // Ensuring the degree is between 0 and 100
+    const degree = Math.min(Math.max(value, 0), 100);
     const newQuestions = [...exam.questions];
     newQuestions[index] = {
       ...newQuestions[index],
@@ -212,13 +212,14 @@ const CreateExam = () => {
         </Col>
       </Form.Group>
       {exam.questions.map((question, qIndex) => (
-        <div key={qIndex}>
+        <div className="mb-3 border  my-3 rounded-2 p-3" key={qIndex}>
           <Form.Group as={Row} controlId={`formQuestion${qIndex}`}>
             <Form.Label column sm={2}>
               Question
             </Form.Label>
             <Col sm={10}>
               <Form.Control
+                className="mb-2"
                 type="text"
                 name="question"
                 value={question.question}
@@ -232,6 +233,7 @@ const CreateExam = () => {
             </Form.Label>
             <Col sm={10}>
               <Form.Control
+                className="mb-2"
                 type="number"
                 name="degree"
                 max="100"
@@ -251,6 +253,7 @@ const CreateExam = () => {
               </Form.Label>
               <Col sm={7}>
                 <Form.Control
+                  className="mb-2"
                   type="text"
                   name="answer"
                   value={answer.answer}
@@ -268,15 +271,19 @@ const CreateExam = () => {
               </Col>
             </Form.Group>
           ))}
-          <Button variant="danger" onClick={() => removeQuestion(qIndex)}>
+          <Button
+            className="m-3"
+            variant="danger"
+            onClick={() => removeQuestion(qIndex)}
+          >
             Remove Question
           </Button>
         </div>
       ))}
-      <Button variant="primary" onClick={addQuestion}>
+      <Button className="m-3" variant="primary" onClick={addQuestion}>
         Add Question
       </Button>
-      <Button variant="success" type="submit">
+      <Button className="m-3" variant="success" type="submit">
         Create Exam
       </Button>
     </Form>

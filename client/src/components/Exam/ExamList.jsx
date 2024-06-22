@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { fetchExams } from "../../api";
+import { fetchExams, fetchResults } from "../../api";
 import { FaFileAlt } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -12,6 +12,23 @@ const ExamList = () => {
   const [loading, setLoading] = useState(true);
   const [selectedExamId, setSelectedExamId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [results, setResults] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const getResults = async () => {
+      try {
+        const data = await fetchResults();
+        setResults(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getResults();
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -42,6 +59,19 @@ const ExamList = () => {
     navigate(`/exams/${selectedExamId}`);
   };
 
+  const getExamResult = (examId) => {
+    return results.find((result) => result.id === examId);
+  };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    });
+  };
   return (
     <div>
       <h2>Exams</h2>
@@ -55,16 +85,22 @@ const ExamList = () => {
                 <FaFileAlt className="fs-1 my-2" />
                 <h5 className="card-title lead my-2">{exam.name}</h5>
                 <p className="card-text text-muted small">
-                  Expires at: {new Date(exam.expire_at).toLocaleString()}
+                  Expires at: {formatDate(exam.expire_at)}
                 </p>
                 <div className="badge bg-info">{exam.duration}</div>
-                <Button
-                  onClick={() => handleStartExam(exam.id)}
-                  disabled={new Date() > new Date(exam.expireAt)}
-                  variant="primary"
-                >
-                  Start Exam
-                </Button>
+                {getExamResult(exam.id) ? (
+                  <div className="text-success">
+                    Score: {getExamResult(exam.id).score}
+                  </div>
+                ) : (
+                  <Button
+                    onClick={() => handleStartExam(exam.id)}
+                    disabled={new Date() > new Date(exam.expire_at)}
+                    variant="primary"
+                  >
+                    Start Exam
+                  </Button>
+                )}
               </div>
               <Modal
                 show={selectedExamId === exam.id}

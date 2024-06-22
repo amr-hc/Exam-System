@@ -8,7 +8,6 @@ const ExamItem = ({ name, duration, expireAt }) => {
         <h5 className="card-title">{name}</h5>
         <p className="card-text">Duration: {duration}</p>
         <p className="card-text">Expires at: {expireAt}</p>
-        {/* Add more details or buttons as needed */}
       </div>
     </div>
   );

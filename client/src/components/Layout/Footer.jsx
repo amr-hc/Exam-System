@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <footer>
-      <p className=" position-absolute bottom-0 text-dark m-0">
+      <p className=" position-fixed bottom-0 text-dark m-3">
         &copy; 2024 Exam System
       </p>
     </footer>

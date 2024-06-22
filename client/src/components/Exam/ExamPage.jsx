@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchExamDetails, submitExamAnswers } from "../../api";
 import Pagination from "../UI/Pagination";
-import ToastComponent from "../UI/Toast"; // Import the ToastComponent here
+import ToastComponent from "../UI/Toast";
 import Spinner from "react-bootstrap/Spinner";
 
 const ExamPage = () => {
@@ -14,7 +14,7 @@ const ExamPage = () => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [examFinished, setExamFinished] = useState(false);
-  const [showToast, setShowToast] = useState(false); // Add state for showing the toast
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     async function fetchExam() {
@@ -37,7 +37,14 @@ const ExamPage = () => {
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      setTimeRemaining((prevTime) => prevTime - 1);
+      setTimeRemaining((prevTime) => {
+        if (prevTime === 0) {
+          clearInterval(timerId);
+          handleSubmit();
+          return prevTime;
+        }
+        return prevTime - 1;
+      });
     }, 1000);
 
     return () => clearInterval(timerId);
@@ -48,7 +55,7 @@ const ExamPage = () => {
   };
 
   const handleAnswerSelect = (questionId, answerId) => {
-    if (examFinished) return; // Prevent interaction if exam is finished
+    if (examFinished) return;
 
     setSelectedAnswers({
       ...selectedAnswers,
@@ -69,7 +76,7 @@ const ExamPage = () => {
       const response = await submitExamAnswers(id, selectedAnswers);
       console.log("Exam submitted successfully:", response);
       setExamFinished(true);
-      navigate(`/results`);
+      navigate(`/dashboard/results`);
     } catch (error) {
       console.error("Error submitting exam answers:", error);
     }

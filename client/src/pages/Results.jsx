@@ -3,7 +3,7 @@ import ResultsList from "../components/Result/ResultsList";
 const Results = () => {
   return (
     <div>
-      <h1>Results</h1>
+      <h6>Results</h6>
       <ResultsList />
     </div>
   );

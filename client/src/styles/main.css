@@ -81,7 +81,7 @@
   transition: all 0.3s;
   text-decoration: none;
   color: inherit;
-  max-width: 300px;
+  max-width: 320px;
   position: relative;
 }
 .exam-card .badge {

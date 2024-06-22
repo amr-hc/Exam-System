@@ -56,8 +56,7 @@ export const fetchResults = async () => {
     },
   };
   const response = await api.get("/exam_student/mine", config);
-
-  return response.data;
+  return response.data.data;
 };
 
 export default api;

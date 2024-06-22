@@ -1,28 +1,32 @@
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "../../components/Layout/Sidebar";
-import Exams from "../../components/Exam/ExamList";
 import CreateExam from "./CreateExam";
 import ExamList from "./ExamList";
 import EditExam from "./EditExam";
 import ExamDetails from "./ExamDetails";
 import ResultComponent from "./Result";
-import { FaHome, FaList, FaChartBar } from "react-icons/fa";
+import { FaHome, FaList } from "react-icons/fa";
+import { MdOutlinePostAdd } from "react-icons/md";
 
 const AdminDashboard = () => {
   const sidebarItems = [
     { name: "Dashboard", path: "/admin/dashboard", icon: <FaHome /> },
     // { name: "Exams", path: "/admin/exams", icon: <FaList /> },
-    { name: "New Exam", path: "/admin/new-exam", icon: <FaList /> },
+    { name: "New Exam", path: "/admin/new-exam", icon: <MdOutlinePostAdd /> },
     { name: "Exam List", path: "/admin/ExamList", icon: <FaList /> },
-    { name: "Results", path: "/admin/dashboard/results", icon: <FaChartBar /> },
   ];
 
   return (
     <div className="d-flex">
       <Sidebar items={sidebarItems} />
-      <div className="content">
+      <div className="content h-auto">
         <Routes>
-          <Route path="/admin/dashboard/" element={<h1>Welcome to the Dashboardc</h1>} />
+          <Route
+            path="/dashboard"
+            element={
+              <h6 className="text-center lead">Welcome to the Dashboard</h6>
+            }
+          />
           {/* <Route path="exams" element={<Exams />} /> */}
           <Route path="new-exam" element={<CreateExam />} />
           <Route path="examList" element={<ExamList />} />
