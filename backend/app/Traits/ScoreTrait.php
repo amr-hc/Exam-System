@@ -12,6 +12,7 @@ trait ScoreTrait
         ->join('answers','questions.id','=','answers.question_id')
         ->join('student_answer','answers.id','=','student_answer.answer_id')
         ->where('student_answer.student_id',$studentId)
+        ->where('exam_student.student_id',$studentId)
         ->where('exams.id',$examId)
         ->where('answers.is_correct',1)
         ->select(DB::raw('SUM(questions.degree) as total_degree'))
